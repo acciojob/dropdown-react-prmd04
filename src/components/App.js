@@ -138,13 +138,77 @@ const states = [{
 }];
 
 
-function App() 
-{
-	// Do not alter/remove main div
+function App() {
+	const[stateIndex,setStateIndex] = useState(0);
+	const[cityIndex,setCityIndex] = useState(0);
+	const[landmarkIndex,setLandmarkIndex] = useState(0);
+
+
+	const selectedState = states[stateIndex];
+	const selectedCity = selectedState.city[cityIndex];
+	const selectedLandmark = selectedCity.landmarks[landmarkIndex];
 	return (
 	<div id="main">
-		
-	</div>
+		<select
+		id="state"
+		value={stateIndex}
+		onChange={(e)=>{
+			setStateIndex(Number(e.target.value));
+			setCityIndex(0); // reset city
+			setLandmarkIndex(0); // reset landmark
+		}}
+		>
+			{states.map((states,index) =>(
+				<option key={index} value={index}>
+					{states.name}
+				</option>
+			))}
+		</select>
+
+		<select
+        id="city"
+        value={cityIndex}
+        onChange={(e) => {
+          setCityIndex(Number(e.target.value));
+          setLandmarkIndex(0); // reset landmark
+        }}
+      >
+        {selectedState.city.map((city, index) => (
+          <option key={index} value={index}>
+            {city.name}
+          </option>
+        ))}
+      </select>
+
+      {/* LANDMARK DROPDOWN */}
+      <select
+        id="landmark"
+        value={landmarkIndex}
+        onChange={(e) => {
+          setLandmarkIndex(Number(e.target.value));
+        }}
+      >
+        {selectedCity.landmarks.map((landmark, index) => (
+          <option key={index} value={index}>
+            {landmark.name}
+          </option>
+        ))}
+      </select>
+
+      <hr />
+
+      {/* State Details */}
+      <div id="state-name"><strong>State:</strong> {selectedState.name}</div>
+      <div id="state-description">{selectedState.description}</div>
+
+      {/* City Details */}
+      <div id="city-name"><strong>City:</strong> {selectedCity.name}</div>
+      <div id="city-description">{selectedCity.description}</div>
+
+      {/* Landmark Details */}
+      <div id="landmark-name"><strong>Landmark:</strong> {selectedLandmark.name}</div>
+      <div id="landmark-description">{selectedLandmark.description}</div>
+    </div>
 	);
 }
 
