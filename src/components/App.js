@@ -198,7 +198,7 @@ function App() {
       <hr />
 
       {/* State Details */}
-      <div id="state-title"><strong>State:</strong> {selectedState.name}</div>
+      <div id="state-title"><strong>State:</strong> State:{selectedState.name}</div>
       <div id="state-description">{selectedState.description}</div>
 
       {/* City Details */}
